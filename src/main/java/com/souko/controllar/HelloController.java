@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.souko.dto.LoginForm;
+import com.souko.dto.Result;
 import com.souko.entity.User;
 import com.souko.service.UserService;
 
@@ -21,23 +23,22 @@ public class HelloController {
 
 	@Autowired
 	private UserService userService;
-	
-	private int i =5;
-	
+
 	@GetMapping("/test")
-	public List<User> list() {
-		// return userService.list();
-		return userService.selectAll();
+	public Result list() {
+		List<User> users = userService.list();
+	    return Result.success(users, users.size());
 	}
 
 	@PostMapping("/listPage")
-	public List<User> listPage(@RequestBody LoginForm loginForm) {
+	public Result listPage(@RequestBody LoginForm loginForm) {
 		Page<User> iPage = new Page<>(loginForm.getPageNum(), loginForm.getPageSize());
 		LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
 		// lqw.like(User::getName, loginForm.getName());
-		lqw.like(User::getName, loginForm.getParam().get("name"));
+		String name = (String) loginForm.getParam().get("name");
+		lqw.like(StringUtils.isNotBlank(name), User::getName, loginForm.getParam().get("name"));
 		Page<User> page2 = userService.page(iPage, lqw);
-		return page2.getRecords();
+		return Result.success(page2.getRecords(),(int) page2.getTotal());
 
 	}
 }
