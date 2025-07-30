@@ -15,6 +15,9 @@ public class Result<T> {
 	public static <T> Result<T> fail() {
 		return new Result<>(400, "失败", 0, null);
 	}
+	public static <T> Result<T> fail(String msg) {
+		return new Result<>(400, msg, 0, null);
+	}
 
 	public static <T> Result<T> success(T data) {
 		return new Result<>(200, "成功", null, data);

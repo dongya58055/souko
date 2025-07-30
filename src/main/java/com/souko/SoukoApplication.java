@@ -14,6 +14,7 @@ public class SoukoApplication {
     public static void main(String[] args) {
         SpringApplication.run(SoukoApplication.class, args);
         log.info("启动成功");
+
     }
 
 }
