@@ -15,24 +15,30 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.souko.SoukoApplication;
 import com.souko.dto.LoginForm;
 import com.souko.dto.Result;
+import com.souko.entity.Menu;
 import com.souko.entity.User;
+import com.souko.service.MenuService;
 import com.souko.service.UserService;
+import com.souko.service.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/user")
-public class HelloController {
+public class UserController {
 
-    private final SoukoApplication soukoApplication;
+    private final UserServiceImpl userServiceImpl;
+
+    
 
     @Autowired
     private UserService userService;
 
-    HelloController(SoukoApplication soukoApplication) {
-        this.soukoApplication = soukoApplication;
+
+    UserController(UserServiceImpl userServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
     }
+
 
     // 测试
     @GetMapping("/test")
@@ -84,12 +90,21 @@ public class HelloController {
     	return userService.removeById(id)? Result.success("删除成功") : Result.fail("删除失败");
     	
     }
+    
+    @Autowired
+    private MenuService mService;
     //登录
     @PostMapping("/login")
     public Result login(@RequestBody User user) {
     	User one = userService.lambdaQuery().eq(User::getNo, user.getNo())
     	.eq(User::getPassword, user.getPassword()).one();
-    	return one==null?Result.fail():Result.success(one);
+    	List<Menu> listUser = mService.list();
+    	if (listUser != null) {
+    		return one==null?Result.fail():Result.success(one);
+		}else {
+			return Result.fail();
+		}
+    	
     }
     
 }
