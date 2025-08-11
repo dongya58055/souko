@@ -6,11 +6,11 @@ import lombok.Data;
 public class Menu {
     private int id;
     private String menuCode;
-    private String name;
-    private String level;
-    private String parentCOde;
-    private String click;
-    private String right;
-    private String compoent;
-    private String icon;
+    private String menuName;
+    private String menuLevel;
+    private String menuParentCode;
+    private String menuClick;
+    private String MenuRight;
+    private String menuComponent;
+    private String menuIcon;
 }
