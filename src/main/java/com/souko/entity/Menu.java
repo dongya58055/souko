@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Menu {
-    private int id;
+    private Integer id;
     private String menuCode;
     private String menuName;
     private String menuLevel;
@@ -13,4 +13,5 @@ public class Menu {
     private String MenuRight;
     private String menuComponent;
     private String menuIcon;
+    private int isDeleted;
 }

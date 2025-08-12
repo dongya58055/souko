@@ -28,14 +28,10 @@ import com.souko.service.impl.UserServiceImpl;
 @RequestMapping("/user")
 public class UserController {
 
-	private final UserServiceImpl userServiceImpl;
+
 
 	@Autowired
 	private UserService userService;
-
-	UserController(UserServiceImpl userServiceImpl) {
-		this.userServiceImpl = userServiceImpl;
-	}
 
 	// 测试
 	@GetMapping("/test")
