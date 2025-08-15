@@ -10,6 +10,8 @@ import com.souko.service.GoodsTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/goodstype")
 public class GoodsTypeController {
@@ -48,5 +50,10 @@ public class GoodsTypeController {
     public Result delete(@PathVariable int id) {
         return goodsTypeService.removeById(id) ? Result.success("删除成功") : Result.fail("删除失败");
 
+    }
+    @GetMapping("/list")
+    public Result list(){
+        List<Goodstype> list = goodsTypeService.list();
+        return Result.success(list);
     }
 }

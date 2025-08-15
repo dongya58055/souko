@@ -27,7 +27,12 @@ public class GoodsController {
         Page<Goods> iPage = new Page<>(loginForm.getPageNum(), loginForm.getPageSize());
         LambdaQueryWrapper<Goods> lqw = new LambdaQueryWrapper<>();
         String name = (String) loginForm.getParam().get("name");
+        //在数字转成字符串时，用valeof不会报错
+        String goodstype = String.valueOf(loginForm.getParam().get("goodstype"));
+        String store = String.valueOf(loginForm.getParam().get("store"));
         lqw.like(StringUtils.isNotBlank(name), Goods::getName, name);
+        lqw.eq(StringUtils.isNotBlank(goodstype),Goods::getGoodsType,goodstype);
+        lqw.eq(StringUtils.isNotBlank(store),Goods::getStore,store);
         Page<Goods> page2 = goodsService.page(iPage, lqw);
         return Result.success(page2.getRecords(), (int) page2.getTotal());
     }

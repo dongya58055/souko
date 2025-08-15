@@ -53,6 +53,7 @@ public class StoreController {
         return service.removeById(id) ? Result.success("删除成功") : Result.fail("删除失败");
     }
 
+    //仓库的查询，准备给管理使用
     @GetMapping("/list")
     public Result list() {
         List<Store> list = service.list();
