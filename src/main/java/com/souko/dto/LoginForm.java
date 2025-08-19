@@ -10,6 +10,5 @@ public class LoginForm {
 	private static int PAGE_NUM=1;
 	private int pageNum=PAGE_NUM;
 	private int pageSize=PAGE_SIZE;
-	private String name;
 	private HashMap<String, Object> param;
 }
