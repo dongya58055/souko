@@ -5,6 +5,8 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.souko.entity.Goods;
+import com.souko.service.GoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +29,8 @@ import javax.naming.spi.ResolveResult;
 public class RecordController {
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private GoodsService goodsService;
 
     @GetMapping("/list")
     public Result test(){
@@ -58,5 +62,27 @@ public class RecordController {
        // return Result.success(page2.getRecords(), (int) page2.getTotal());
     }
 
+    //表单的保存
+    @PostMapping("/save")
+    public Result save(@RequestBody Record record){
+        //添加记录
+        //更改先获取原来的id
+        Goods goods = goodsService.getById(record.getGoods());
+        int oldCount = record.getCount();
+        //对于count进行更改
+       // System.out.println(record.getAction());
+        if (record.getAction()==2){
+            //出库
+            oldCount=-oldCount;
+            record.setCount(oldCount);
+        }
+        int newCount = goods.getCount()+oldCount;
+        goods.setCount(newCount);
+        goodsService.updateById(goods);
+       // System.out.println(record);
+        return recordService.save(record)?Result.success("保存成功"):Result.fail("保存失败");
+
+
+    }
 
 }
