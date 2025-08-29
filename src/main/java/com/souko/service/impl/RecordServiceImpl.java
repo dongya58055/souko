@@ -22,8 +22,8 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
 
     @Override
     public IPage pageCC(IPage<Record> page, QueryWrapper<RecordResult> lqw,String name,String goodstype,
-                        String store) {
+                        String store,int roleId,int userid) {
         return recordMapper.pageCC(page,lqw,name,goodstype,
-                store);
+                store,roleId,userid);
     }
 }

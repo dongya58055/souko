@@ -22,4 +22,5 @@ public class Record {
     private String remark;
     @TableField(exist = false)
     private int action;
+    private String roleId;
 }

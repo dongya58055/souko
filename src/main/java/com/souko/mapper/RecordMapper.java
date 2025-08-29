@@ -20,6 +20,8 @@ public interface RecordMapper extends BaseMapper<Record> {
                  @Param(Constants.WRAPPER) QueryWrapper<RecordResult> lqw,
                  @Param("name") String name,
                  @Param("goodstype") String goodstype,
-                 @Param("store") String store
+                 @Param("store") String store,
+                 @Param("roleId") int roleId,
+                 @Param("userId") Integer userId
                  );
 }

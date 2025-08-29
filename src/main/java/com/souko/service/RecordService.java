@@ -13,5 +13,5 @@ import java.util.List;
 public interface RecordService extends IService<Record> {
     //Page<RecordResult> selectRecordsWithUser(int pageNum,int pageSize);
     IPage pageCC(IPage<Record> page, QueryWrapper<RecordResult> lqw,String name,String goodstype,
-                 String store);
+                 String store,int roleId,int userId);
 }

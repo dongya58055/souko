@@ -25,6 +25,7 @@
         LEFT JOIN tb_store s ON s.id = g.store
         left join tb_user u1 on u1.id = r.userId
         left join tb_user u2 on u2.id = r.admin_id
+
         <where>
             <if test="name != null and name != ''">
                 AND g.name LIKE CONCAT('%', #{name}, '%')
@@ -34,6 +35,9 @@
             </if>
             <if test="store != null and store != ''">
                 AND s.id = #{store}
+            </if>
+            <if test="roleId==2">
+                AND r.userId = #{userId}
             </if>
         </where>
     </select>

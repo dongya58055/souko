@@ -31,8 +31,8 @@ public class GoodsController {
         String goodstype = String.valueOf(loginForm.getParam().get("goodstype"));
         String store = String.valueOf(loginForm.getParam().get("store"));
         lqw.like(StringUtils.isNotBlank(name), Goods::getName, name);
-        lqw.eq(StringUtils.isNotBlank(goodstype),Goods::getGoodsType,goodstype);
-        lqw.eq(StringUtils.isNotBlank(store),Goods::getStore,store);
+        lqw.eq(StringUtils.isNotBlank(goodstype), Goods::getGoodsType, goodstype);
+        lqw.eq(StringUtils.isNotBlank(store), Goods::getStore, store);
         Page<Goods> page2 = goodsService.page(iPage, lqw);
         return Result.success(page2.getRecords(), (int) page2.getTotal());
     }

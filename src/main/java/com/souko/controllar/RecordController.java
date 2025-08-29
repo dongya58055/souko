@@ -37,7 +37,7 @@ public class RecordController {
         List<Record> list = recordService.list();
         return Result.success(list);
     }
-    
+
     @PostMapping("/listPage")
     public Result listPage(@RequestBody LoginForm loginForm) {
         Page<Record> iPage = new Page<>(loginForm.getPageNum(), loginForm.getPageSize());
@@ -53,13 +53,16 @@ public class RecordController {
         //仓库和类型 并且都是ID查询
         String goodstype = String.valueOf(loginForm.getParam().get("goodstype"));
         String store = String.valueOf(loginForm.getParam().get("store"));
+        int roleId =(Integer) loginForm.getParam().get("roleId");
+        int userId =(Integer) loginForm.getParam().get("userId");
         qw.like(StringUtils.isNotBlank(name),"g.name",name);
         qw.eq(StringUtils.isNotBlank(goodstype), "gt.id",goodstype);
-        qw.eq(StringUtils.isNotBlank(store),"s.id",store);
+        if (roleId==2){
+            qw.eq("u.id",userId);
+        }
         //Page<RecordResult> page2 = recordService.selectRecordsWithUser();
-        IPage result = recordService.pageCC(iPage,qw,name,goodstype,store);
+        IPage result = recordService.pageCC(iPage,qw,name,goodstype,store,roleId,userId);
         return Result.success(result.getRecords(), (int) result.getTotal());
-       // return Result.success(page2.getRecords(), (int) page2.getTotal());
     }
 
     //表单的保存
