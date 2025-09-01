@@ -104,11 +104,6 @@ public class UserController {
             hashMap.put("menu", listUser);
             return Result.success(hashMap);
         }
-//    	if (listUser != null) {
-//    		return one==null?Result.fail():Result.success(one);
-//		}else {
-//			return Result.fail();
-//		}
         return Result.fail();
     }
 
