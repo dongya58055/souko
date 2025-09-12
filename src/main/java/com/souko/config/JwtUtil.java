@@ -5,6 +5,7 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -12,10 +13,12 @@ import java.util.Map;
 
 public class JwtUtil {
     // 生成签名密钥（长度至少 32 字节）
+    @Getter
     private static final SecretKey key = Keys.hmacShaKeyFor("mysecretmysecretmysecretmysecret".getBytes());
 
     // token 默认过期时间（毫秒），这里设置 1 小时
     private static final long EXPIRATION = 3600 * 1000;
+    private static final long TEST = 60_000;
 
     /**
      * 生成 JWT

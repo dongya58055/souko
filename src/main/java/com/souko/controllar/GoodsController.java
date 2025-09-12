@@ -34,10 +34,11 @@ public class GoodsController {
         lqw.eq(StringUtils.isNotBlank(goodstype), Goods::getGoodsType, goodstype);
         lqw.eq(StringUtils.isNotBlank(store), Goods::getStore, store);
         Page<Goods> page2 = goodsService.page(iPage, lqw);
+        System.out.println(page2.getRecords());
         return Result.success(page2.getRecords(), (int) page2.getTotal());
     }
 
-    // 新增用户
+    // 新增
     @PostMapping("/add")
     public Result save(@RequestBody Goods store) {
         // return Result.success(userService.save(user));

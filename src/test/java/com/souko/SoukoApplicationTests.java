@@ -1,5 +1,6 @@
 package com.souko;
 
+import com.souko.config.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -19,16 +20,12 @@ class SoukoApplicationTests {
     @BeforeEach
     public  void testJwt(){
         Map<String, Object> map = new HashMap();
-        map.put("id",1);
-        map.put("name","tom");
+        map.put("roleId",1);
+        map.put("user","admin");
+        String token1 = JwtUtil.generateToken(map);
+        System.out.println(token1);
+        this.token = token1;
 
-        String token = Jwts.builder()
-                .setClaims(map)//自定义内容
-                .setExpiration(new Date(System.currentTimeMillis() + 3600 * 1000))
-                .signWith(key, SignatureAlgorithm.HS256)
-                .compact();
-        System.out.println(token);
-        this.token = token;
     }
 
     @Test

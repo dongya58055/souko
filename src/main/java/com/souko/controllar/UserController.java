@@ -2,7 +2,9 @@ package com.souko.controllar;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import com.souko.config.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,9 +104,14 @@ public class UserController {
         if (one != null && listUser != null) {
             hashMap.put("user", one);
             hashMap.put("menu", listUser);
+            Map<String,Object> claims = new HashMap<>();
+            claims.put("user",one.getNo());
+            claims.put("roleId",one.getRoleId());
+            String token = JwtUtil.generateToken(claims);
+            hashMap.put("token",token);
             return Result.success(hashMap);
         }
-        return Result.fail();
+        return Result.fail("登录失败");
     }
 
 }
